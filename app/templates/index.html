@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+
+    {% block content %}
+    <h1>Hi, {{current_user.username}}!</h1> <!-- style this so it's at the top middle and maybe have the status and latest posts of the user-->
+    
+<div class="flex justify-center items-start h-screen space-x-4 mt-6">
+        
+        {% if form %} 
+        <form action="" method="post" novalidate class="bg-white p-6 rounded shadow-md">
+            <h2 class="text-center text-2xl font-boldtracking-tight text-gray-900 py-4">Create a new prompt</h2>
+            {{ form.hidden_tag() }}
+            <p class="mb-4">
+                {{ form.post(cols=64, rows=10, class_="border border-gray-300 rounded-md") }}<br>
+                {% for error in form.post.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>{{ form.submit(class_="text-gray-700 hover:text-slate-900 active:white border px-6 border-gray-300 rounded-md hover:border-gray-500 focus:border-gray-500") }}</p>
+        </form>
+
+
+        {% endif %}
+    <div class="flex justify-end items-start border px-3 py-4 border-gray-500 rounded-md">
+        <table>
+            {% for post in posts %}
+                {% include '_post.html' %}
+            {% endfor %}
+        </table>        
+        {% if prev_url %}
+        <a href="{{ prev_url }}">Newer posts</a>
+        {% endif %}
+        {% if next_url %}
+        <a href="{{ next_url }}">Older posts</a>
+        {% endif %}
+    </div>
+</div>
+    {% endblock %}
+
+

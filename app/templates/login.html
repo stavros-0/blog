@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="flex justify-center items-center h-screen">
+    <form action="" method="post" novalidate class="bg-white p-6 rounded shadow-md">
+        <h2 class="text-center text-2xl font-boldtracking-tight text-gray-900 py-4">Sign in to your account</h2>
+        {{ form.hidden_tag() }}
+        <p class="mb-4">
+            {{ form.username.label }} <br>
+            {{ form.username(size=32, class_="border border-gray-300 focus:outline-none focus:border-blue-500 p-2 rounded-md") }}<br>
+            {% for error in form.username.errors %}
+            <span style="color:red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p class="mb-2">
+            {{ form.password.label }}<br>
+            {{ form.password(size=32, class_="border border-gray-300 focus:outline-none focus:border-blue-500 p-2 rounded-md") }}<br>
+            {% for error in form.password.errors %}
+            <span style = "color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>{{ form.remember_me() }} {{form.remember_me.label }}</p>
+        <p>{{ form.submit(class_="text-gray-700 hover:text-slate-900 active:white") }}</p>
+        <p> New User? <a href="{{ url_for('register') }}"> <span style="color:#3B82F6; text-decoration: underline; underline-offset: 1px; transition: color 0.3s;" onmouseover="this.style.color='#2563EB'" onmouseout="this.style.color='#3B82F6'">Click to Register </span></a></p>
+        <p>Forgot Your Password?<a href="{{ url_for('reset_password_request') }}"> <span style="color:#3B82F6; text-decoration: underline; underline-offset: 1px; transition: color 0.3s;" onmouseover="this.style.color='#2563EB'" onmouseout="this.style.color='#3B82F6'">Click to Reset It</span></a>
+        </p>
+    </div>
+    </form>
+    
+{% endblock %}

@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+    <head>
+        
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="{{ url_for('static', filename='css/output.css') }}" rel="stylesheet">
+        <!-- Font -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+        
+        {% if title %}
+        <title> {{title }} - AllTopics</title>
+        {% else %}
+        <title>AllTopics</title>
+        {% endif %}
+
+    </head>
+    <body class="font-[Poppins] bg-gradient-to-t from-[#fbc2eb] to-[#a6c1ee] h-screen"> 
+       <nav class="bg-white shadow-lg">
+        <div class="mx-auto px-4 sm:px-6 lg:px-8 flex justify-center h-16 items-center">
+            <div class="flex space-x-4"> 
+                    <a href="{{ url_for('index') }}" class="text-gray-700 hover:text-gray-900 text-lg font-semibold">Home</a>
+            {% if current_user.is_anonymous %} 
+            <a href="{{ url_for('login') }}" class="text-gray-600 hover:text-gray-900 text-lg font-semibold">Login</a>
+            {% else %}
+            <a href="{{ url_for('user', username=current_user.username) }}" class="text-gray-700 hover:text-gray-900 text-lg font-semibold">Profile</a>
+            <a href="{{ url_for('explore') }}" class="text-gray-700 hover:text-gray-900 text-lg font-semibold">Explore</a>
+            <a href="{{ url_for('logout') }}" class="text-gray-700 hover:text-gray-900 text-lg font-semibold">Logout</a>
+            {% endif %}
+        </div>
+        </div>
+        </div>
+       </nav>
+            
+            
+        <hr>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </body>
+</html>
